@@ -1,0 +1,39 @@
+# Source files
+src/
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx
+__tests__/
+
+# Configuration files
+tsconfig.json
+rollup.config.js
+jest.config.js
+.eslintrc.js
+.gitignore
+.npmignore
+
+# Development dependencies
+node_modules/
+coverage/
+*.log
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build artifacts (keep only dist)
+.cache
+.parcel-cache
+tmp/
+temp/
+
+# Development and testing
+*.tsbuildinfo
+.eslintcache
+.nyc_output
