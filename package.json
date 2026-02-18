@@ -1,6 +1,6 @@
 {
     "name": "@unified-api/react-authentication",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "React component for Unified API authentication",
     "type": "module",
     "main": "dist/index.js",

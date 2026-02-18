@@ -64,7 +64,7 @@ function App() {
 | `state` | `string` | `undefined` | State parameter that will be returned to success/failure URLs |
 | `pretext` | `string` | `'Sign in with'` | Prefix text for authentication buttons (e.g., "Continue with", "Login via") |
 | `include_text` | `boolean` | `true` | Whether to display text labels on authentication buttons |
-| `include_icon` | `boolean` | `true` | Whether to display provider icons on authentication buttons |
+| `include_logo` | `boolean` | `true` | Whether to display provider logos on authentication buttons |
 | `className` | `string` | `''` | Custom CSS class name for the component container |
 | `style` | `React.CSSProperties` | `undefined` | Inline styles for the component container |
 | `onSuccess` | `(data: { name?: string; emails?: string[] }) => void` | `undefined` | Callback function called when authentication succeeds |
@@ -128,7 +128,7 @@ function App() {
 ```tsx
 <UnifiedAuthentication
   workspace_id="ws_1234567890"
-  include_text={false}  // Only show icons
+  include_text={false}  // Only show icons/logos
   pretext=""
 />
 ```
@@ -168,7 +168,7 @@ The component includes default styles that work well out of the box, with suppor
 - `.unified-auth-description` - Description text
 - `.unified-auth-providers` - Provider buttons container
 - `.unified-auth-button` - Individual provider buttons
-- `.unified-auth-icon` - Provider icons
+- `.unified-auth-icon` - Provider icons/logos
 - `.unified-auth-text` - Button text
 - `.unified-auth-loading` - Loading state container
 - `.unified-auth-error` - Error state container

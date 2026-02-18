@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './styles.css';
 
 // Define the data center type
 export type DataCenter = 'us' | 'eu' | 'au';
@@ -51,8 +52,8 @@ export interface UnifiedAuthenticationProps {
     onFailure?: (error: Error) => void;
 }
 
-// Provider interface
-interface AuthProvider {
+// Integration interface
+interface AuthIntegration {
     type: string;
     name: string;
     logo_url: string;
@@ -75,36 +76,36 @@ const UnifiedAuthentication: React.FC<UnifiedAuthenticationProps> = ({
     onSuccess,
     onFailure,
 }) => {
-    const [providers, setProviders] = useState<AuthProvider[]>([]);
+    const [integrations, setIntegrations] = useState<AuthIntegration[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
     // Get the base URL for the Unified API
     const getBaseUrl = () => {
         const dcMap = {
-            us: 'https://unified.to',
-            eu: 'https://eu.unified.to',
-            au: 'https://au.unified.to',
+            us: 'https://api.unified.to',
+            eu: 'https://api-eu.unified.to',
+            au: 'https://api-au.unified.to',
         };
         return dcMap[dc];
     };
 
-    // Fetch available providers
+    // Fetch available integrations
     useEffect(() => {
-        const fetchProviders = async () => {
+        const fetchIntegrations = async () => {
             try {
                 setLoading(true);
                 const baseUrl = getBaseUrl();
                 const response = await fetch(`${baseUrl}/unified/integration/workspace/${workspace_id}?categories=auth&summary=true&active=true`);
 
                 if (!response.ok) {
-                    throw new Error(`Failed to fetch providers: ${response.statusText}`);
+                    throw new Error(`Failed to fetch integrations: ${response.statusText}`);
                 }
 
                 const data = await response.json();
-                setProviders(data.providers || []);
+                setIntegrations(data || []);
             } catch (err) {
-                const errorMessage = err instanceof Error ? err.message : 'Failed to load authentication providers';
+                const errorMessage = err instanceof Error ? err.message : 'Failed to load authentication integrations';
                 setError(errorMessage);
                 if (onFailure) {
                     onFailure(new Error(errorMessage));
@@ -115,12 +116,12 @@ const UnifiedAuthentication: React.FC<UnifiedAuthenticationProps> = ({
         };
 
         if (workspace_id) {
-            fetchProviders();
+            fetchIntegrations();
         }
     }, [workspace_id, dc, onFailure]);
 
     // Handle authentication
-    const handleAuthentication = (providerType: string) => {
+    const handleAuthentication = (integrationType: string) => {
         try {
             const baseUrl = getBaseUrl();
             const params = new URLSearchParams({
@@ -131,7 +132,7 @@ const UnifiedAuthentication: React.FC<UnifiedAuthenticationProps> = ({
                 ...(environment && { environment }),
             });
 
-            const authUrl = `${baseUrl}/unified/integration/login/${workspace_id}/${providerType}?${params.toString()}`;
+            const authUrl = `${baseUrl}/unified/integration/login/${workspace_id}/${integrationType}?${params.toString()}`;
 
             // Redirect to authentication URL
             window.location.href = authUrl;
@@ -184,20 +185,20 @@ const UnifiedAuthentication: React.FC<UnifiedAuthenticationProps> = ({
             {title && <h2 className="unified-auth-title">{title}</h2>}
             {description && <p className="unified-auth-description">{description}</p>}
 
-            <div className="unified-auth-providers">
-                {providers.map((provider) => (
-                    <button key={provider.type} className="unified-auth-button" onClick={() => handleAuthentication(provider.type)} type="button">
-                        {include_logo && provider.logo_url && <img src={provider.logo_url} alt={provider.name} className="unified-auth-icon" />}
+            <div className="unified-auth-integrations">
+                {integrations.map((integration) => (
+                    <button key={integration.type} className="unified-auth-button" onClick={() => handleAuthentication(integration.type)} type="button">
+                        {include_logo && integration.logo_url && <img src={integration.logo_url} alt={integration.name} className="unified-auth-icon" />}
                         {include_text && (
                             <span className="unified-auth-text">
-                                {pretext} {provider.name}
+                                {pretext} {integration.name}
                             </span>
                         )}
                     </button>
                 ))}
             </div>
 
-            {providers.length === 0 && <p className="unified-auth-no-providers">No authentication providers available.</p>}
+            {integrations.length === 0 && <p className="unified-auth-no-integrations">No authentication integrations available.</p>}
         </div>
     );
 };

@@ -7,6 +7,3 @@ export type {
   UnifiedAuthenticationProps,
   DataCenter 
 } from './UnifiedAuthentication';
-
-// Export styles
-export { default as styles } from './styles.css';
