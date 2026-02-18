@@ -53,10 +53,9 @@ export interface UnifiedAuthenticationProps {
 
 // Provider interface
 interface AuthProvider {
-  id: string;
+  type: string;
   name: string;
-  icon?: string;
-  enabled: boolean;
+  logo_url: string;
 }
 
 const UnifiedAuthentication: React.FC<UnifiedAuthenticationProps> = ({
@@ -96,7 +95,7 @@ const UnifiedAuthentication: React.FC<UnifiedAuthenticationProps> = ({
       try {
         setLoading(true);
         const baseUrl = getBaseUrl();
-        const response = await fetch(`${baseUrl}/auth/providers/${workspace_id}`);
+        const response = await fetch(`${baseUrl}/unified/integration/workspace/${workspace_id}?categories=auth&summary=true&active=true`);
         
         if (!response.ok) {
           throw new Error(`Failed to fetch providers: ${response.statusText}`);
