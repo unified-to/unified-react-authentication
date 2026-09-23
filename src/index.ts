@@ -3,7 +3,8 @@ export { default } from './UnifiedAuthentication';
 export { default as UnifiedAuthentication } from './UnifiedAuthentication';
 
 // Export types
-export type { 
+export type {
   UnifiedAuthenticationProps,
-  DataCenter 
+  DataCenter,
+  AuthTheme,
 } from './UnifiedAuthentication';

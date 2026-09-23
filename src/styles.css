@@ -1,221 +1,220 @@
-/* Unified Authentication Component Styles - Login / Sign-in */
+/* Unified Authentication — Clerk-inspired card UI */
 
 .unified-authentication {
-  box-sizing: border-box;
-  width: 100%;
-  max-width: 420px;
-  margin: 0 auto;
-  padding: 24px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+    --ua-bg: #ffffff;
+    --ua-fg: #212126;
+    --ua-muted: #747686;
+    --ua-border: #e5e5e5;
+    --ua-border-hover: #d4d4d8;
+    --ua-hover: #f7f7f8;
+    --ua-active: #f0f0f2;
+    --ua-error: #ef4444;
+    --ua-error-bg: transparent;
+    --ua-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 4px 16px rgba(0, 0, 0, 0.06);
+    --ua-ring-offset: #ffffff;
+    --ua-ring: rgba(33, 33, 38, 0.35);
+    --ua-radius-card: 0.75rem;
+    --ua-radius-control: 0.5rem;
+    --ua-font: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+        sans-serif;
+
+    box-sizing: border-box;
+    width: 100%;
+    font-family: var(--ua-font);
+    color: var(--ua-fg);
+    color-scheme: light;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-.unified-auth-title {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin: 0 0 8px 0;
-  text-align: center;
-  color: #1a1a1a;
-  line-height: 1.3;
-}
-
-.unified-auth-description {
-  font-size: 0.875rem;
-  color: #6b7280;
-  margin: 0 0 24px 0;
-  text-align: center;
-  line-height: 1.5;
-}
-
-.unified-auth-integrations {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.unified-auth-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  width: 100%;
-  padding: 14px 20px;
-  border: 1px solid #e5e7eb;
-  border-radius: 10px;
-  background: #ffffff;
-  color: #374151;
-  font-size: 0.9375rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
-  text-decoration: none;
-  min-height: 48px;
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.unified-auth-button:hover {
-  background: #f9fafb;
-  border-color: #d1d5db;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-}
-
-.unified-auth-button:active {
-  background: #f3f4f6;
-  box-shadow: none;
-}
-
-.unified-auth-button:focus-visible {
-  outline: 2px solid #3b82f6;
-  outline-offset: 2px;
-}
-
-.unified-auth-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.unified-auth-button:disabled:hover {
-  background: #ffffff;
-  border-color: #e5e7eb;
-  box-shadow: none;
-}
-
-.unified-auth-icon {
-  display: block;
-  width: 24px;
-  height: 24px;
-  flex-shrink: 0;
-  object-fit: contain;
-}
-
-.unified-auth-icon svg {
-  width: 24px;
-  height: 24px;
-}
-
-.unified-auth-text {
-  flex: 1;
-  text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.unified-auth-loading {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 48px 24px;
-}
-
-.unified-auth-spinner {
-  color: #6b7280;
-  font-size: 0.875rem;
-}
-
-.unified-auth-error {
-  padding: 16px 20px;
-  background: #fef2f2;
-  border: 1px solid #fecaca;
-  border-radius: 10px;
-  color: #dc2626;
-  font-size: 0.875rem;
-  line-height: 1.5;
-}
-
-.unified-auth-no-integrations {
-  text-align: center;
-  color: #6b7280;
-  font-size: 0.875rem;
-  padding: 24px 16px;
-  line-height: 1.5;
-}
-
-/* Dark mode support */
 @media (prefers-color-scheme: dark) {
-  .unified-auth-title {
-    color: #f9fafb;
-  }
-
-  .unified-auth-description {
-    color: #9ca3af;
-  }
-
-  .unified-auth-button {
-    background: #1f2937;
-    border-color: #374151;
-    color: #f9fafb;
-  }
-
-  .unified-auth-button:hover {
-    background: #374151;
-    border-color: #4b5563;
-  }
-
-  .unified-auth-button:active {
-    background: #4b5563;
-  }
-
-  .unified-auth-button:disabled:hover {
-    background: #1f2937;
-    border-color: #374151;
-  }
-
-  .unified-auth-error {
-    background: #450a0a;
-    border-color: #991b1b;
-    color: #fca5a5;
-  }
-
-  .unified-auth-no-integrations {
-    color: #9ca3af;
-  }
+    .unified-authentication:not([data-theme='light']) {
+        --ua-bg: #212126;
+        --ua-fg: #f8f8f8;
+        --ua-muted: #a1a1aa;
+        --ua-border: #3f3f46;
+        --ua-border-hover: #52525b;
+        --ua-hover: #2c2c32;
+        --ua-active: #35353c;
+        --ua-error: #f87171;
+        --ua-shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 8px 24px rgba(0, 0, 0, 0.45);
+        --ua-ring-offset: #212126;
+        --ua-ring: rgba(248, 248, 248, 0.35);
+        color-scheme: dark;
+    }
 }
 
-/* Mobile-first responsive design */
-@media (max-width: 480px) {
-  .unified-authentication {
-    padding: 20px 16px;
-    max-width: none;
-  }
+.unified-authentication[data-theme='dark'] {
+    --ua-bg: #212126;
+    --ua-fg: #f8f8f8;
+    --ua-muted: #a1a1aa;
+    --ua-border: #3f3f46;
+    --ua-border-hover: #52525b;
+    --ua-hover: #2c2c32;
+    --ua-active: #35353c;
+    --ua-error: #f87171;
+    --ua-shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 8px 24px rgba(0, 0, 0, 0.45);
+    --ua-ring-offset: #212126;
+    --ua-ring: rgba(248, 248, 248, 0.35);
+    color-scheme: dark;
+}
 
-  .unified-auth-title {
-    font-size: 1.25rem;
-  }
+.unified-authentication[data-theme='light'] {
+    color-scheme: light;
+}
 
-  .unified-auth-description {
-    margin-bottom: 20px;
-  }
+.unified-authentication *,
+.unified-authentication *::before,
+.unified-authentication *::after {
+    box-sizing: border-box;
+}
 
-  .unified-auth-integrations {
-    gap: 10px;
-  }
+.unified-authentication .unified-auth-card {
+    width: 100%;
+    max-width: 25rem;
+    margin: 0 auto;
+    padding: 2rem;
+    background: var(--ua-bg);
+    border: 1px solid var(--ua-border);
+    border-radius: var(--ua-radius-card);
+    box-shadow: var(--ua-shadow);
+}
 
-  .unified-auth-button {
-    padding: 16px 20px;
-    min-height: 52px;
-    font-size: 1rem; /* 16px - prevents iOS zoom on focus */
-  }
-
-  .unified-auth-icon {
-    width: 22px;
-    height: 22px;
-  }
-
-  .unified-auth-icon svg {
-    width: 22px;
-    height: 22px;
-  }
-
-  .unified-auth-text {
-    white-space: normal;
+.unified-authentication .unified-auth-header {
     text-align: center;
-  }
+    margin-bottom: 1.5rem;
 }
 
-/* Tablet and up - ensure buttons don't stretch too wide */
-@media (min-width: 481px) {
-  .unified-authentication {
-    padding: 32px;
-  }
+.unified-authentication .unified-auth-title {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    color: var(--ua-fg);
+}
+
+.unified-authentication .unified-auth-description {
+    margin: 0.5rem 0 0;
+    font-size: 0.9375rem;
+    font-weight: 400;
+    line-height: 1.45;
+    color: var(--ua-muted);
+}
+
+.unified-authentication .unified-auth-integrations {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.unified-authentication .unified-auth-button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    min-height: 2.5rem;
+    padding: 0.625rem 1rem;
+    background: var(--ua-bg);
+    border: 1px solid var(--ua-border);
+    border-radius: var(--ua-radius-control);
+    color: var(--ua-fg);
+    font-family: inherit;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.25;
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.unified-authentication .unified-auth-button:hover {
+    background: var(--ua-hover);
+    border-color: var(--ua-border-hover);
+    color: var(--ua-fg);
+}
+
+.unified-authentication .unified-auth-button:active {
+    background: var(--ua-active);
+}
+
+.unified-authentication .unified-auth-button:focus {
+    outline: none;
+}
+
+.unified-authentication .unified-auth-button:focus-visible {
+    border-color: var(--ua-fg);
+    box-shadow: 0 0 0 2px var(--ua-ring-offset), 0 0 0 4px var(--ua-ring);
+}
+
+.unified-authentication .unified-auth-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.unified-authentication .unified-auth-button:disabled:hover {
+    background: var(--ua-bg);
+    border-color: var(--ua-border);
+}
+
+.unified-authentication .unified-auth-icon {
+    display: block;
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+    object-fit: contain;
+}
+
+.unified-authentication .unified-auth-text {
+    display: inline;
+}
+
+.unified-authentication .unified-auth-loading,
+.unified-authentication .unified-auth-error,
+.unified-authentication .unified-auth-no-integrations {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 1.25rem 0.5rem;
+    text-align: center;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--ua-muted);
+    margin: 0;
+}
+
+.unified-authentication .unified-auth-error {
+    color: var(--ua-error);
+}
+
+.unified-authentication .unified-auth-spinner {
+    color: var(--ua-muted);
+    font-size: 0.875rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .unified-authentication .unified-auth-button {
+        transition: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .unified-authentication .unified-auth-card {
+        padding: 1.5rem 1rem;
+    }
+
+    .unified-authentication .unified-auth-button {
+        font-size: 1rem; /* prevents iOS zoom on focus */
+        min-height: 2.75rem;
+    }
+
+    .unified-authentication .unified-auth-text {
+        white-space: normal;
+    }
 }

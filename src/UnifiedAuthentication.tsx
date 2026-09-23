@@ -4,6 +4,9 @@ import './styles.css';
 // Define the data center type
 export type DataCenter = 'us' | 'eu' | 'au';
 
+/** Theme mode: 'auto' follows prefers-color-scheme */
+export type AuthTheme = 'auto' | 'light' | 'dark';
+
 // Define the props interface
 export interface UnifiedAuthenticationProps {
     /** Required workspace ID for authentication */
@@ -39,6 +42,12 @@ export interface UnifiedAuthenticationProps {
     /** Whether to include logos in buttons - defaults to true */
     include_logo?: boolean;
 
+    /**
+     * Color theme. 'auto' (default) follows prefers-color-scheme;
+     * 'light' | 'dark' force a theme.
+     */
+    theme?: AuthTheme;
+
     /** Custom CSS class name */
     className?: string;
 
@@ -71,6 +80,7 @@ const UnifiedAuthentication: React.FC<UnifiedAuthenticationProps> = ({
     pretext = 'Sign in with',
     include_text = true,
     include_logo = true,
+    theme = 'auto',
     className = '',
     style,
     onSuccess,
@@ -164,41 +174,73 @@ const UnifiedAuthentication: React.FC<UnifiedAuthenticationProps> = ({
         }
     }, [onSuccess]);
 
+    const rootClassName = ['unified-authentication', className].filter(Boolean).join(' ');
+    const dataTheme = theme === 'auto' ? undefined : theme;
+
+    const header =
+        title || description ? (
+            <header className="unified-auth-header">
+                {title && <h2 className="unified-auth-title">{title}</h2>}
+                {description && <p className="unified-auth-description">{description}</p>}
+            </header>
+        ) : null;
+
     if (loading) {
         return (
-            <div className={`unified-auth-loading ${className}`} style={style}>
-                <div className="unified-auth-spinner">Loading...</div>
+            <div className={rootClassName} data-theme={dataTheme} style={style}>
+                <div className="unified-auth-card">
+                    {header}
+                    <div className="unified-auth-loading">
+                        <div className="unified-auth-spinner">Loading...</div>
+                    </div>
+                </div>
             </div>
         );
     }
 
     if (error) {
         return (
-            <div className={`unified-auth-error ${className}`} style={style}>
-                <p>Error: {error}</p>
+            <div className={rootClassName} data-theme={dataTheme} style={style}>
+                <div className="unified-auth-card">
+                    {header}
+                    <div className="unified-auth-error" role="alert">
+                        {error}
+                    </div>
+                </div>
             </div>
         );
     }
 
     return (
-        <div className={`unified-authentication ${className}`} style={style}>
-            {title && <h2 className="unified-auth-title">{title}</h2>}
-            {description && <p className="unified-auth-description">{description}</p>}
+        <div className={rootClassName} data-theme={dataTheme} style={style}>
+            <div className="unified-auth-card">
+                {header}
 
-            <div className="unified-auth-integrations">
-                {integrations.map((integration) => (
-                    <button key={integration.type} className="unified-auth-button" onClick={() => handleAuthentication(integration.type)} type="button">
-                        {include_logo && integration.logo_url && <img src={integration.logo_url} alt={integration.name} className="unified-auth-icon" />}
-                        {include_text && (
-                            <span className="unified-auth-text">
-                                {pretext} {integration.name}
-                            </span>
-                        )}
-                    </button>
-                ))}
+                <div className="unified-auth-integrations">
+                    {integrations.map((integration) => (
+                        <button
+                            key={integration.type}
+                            className="unified-auth-button"
+                            onClick={() => handleAuthentication(integration.type)}
+                            type="button"
+                        >
+                            {include_logo && integration.logo_url && (
+                                <img src={integration.logo_url} alt="" className="unified-auth-icon" />
+                            )}
+                            {include_text && (
+                                <span className="unified-auth-text">
+                                    {pretext ? `${pretext} ` : ''}
+                                    {integration.name}
+                                </span>
+                            )}
+                        </button>
+                    ))}
+                </div>
+
+                {integrations.length === 0 && (
+                    <p className="unified-auth-no-integrations">No authentication integrations available.</p>
+                )}
             </div>
-
-            {integrations.length === 0 && <p className="unified-auth-no-integrations">No authentication integrations available.</p>}
         </div>
     );
 };
